@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -6,11 +8,14 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MatDialogModule,
+        BrowserAnimationsModule
       ],
       declarations: [
         AppComponent
-      ],
+      ]
+     
     }).compileComponents();
   });
 
@@ -26,10 +31,12 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('modaltesting');
   });
 
-  it('should render title', () => {
+  it(`should call open dialog method`, ()=>{
     const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    app.openDialog();
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('modaltesting app is running!');
-  });
+    const popupHeader = document.getElementsByTagName('h2')[0] as HTMLHeadElement;
+    expect(popupHeader.innerText).toEqual('Welcome Sameul');
+  })
 });
